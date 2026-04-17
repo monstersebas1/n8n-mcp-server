@@ -13,14 +13,10 @@ Connect this MCP server to Claude, Cursor, Windsurf, or any MCP-compatible AI as
 
 The AI assistant talks to your n8n instance through this server and does the work.
 
-## Quick Start
+## Install
 
 ```bash
-npm install
-cp .env.example .env
-# Add your n8n instance URL and API key to .env
-npm run build
-npm start
+npm install -g @weautomatehq/n8n-mcp-server
 ```
 
 ## Connect to Claude Desktop
@@ -31,8 +27,27 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "n8n-workflow-builder": {
-      "command": "node",
-      "args": ["path/to/n8n-mcp-server/dist/index.js"],
+      "command": "npx",
+      "args": ["@weautomatehq/n8n-mcp-server"],
+      "env": {
+        "N8N_BASE_URL": "https://your-n8n-instance.com",
+        "N8N_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+## Connect to Claude Code
+
+Add to your `.claude/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "n8n-workflow-builder": {
+      "command": "npx",
+      "args": ["@weautomatehq/n8n-mcp-server"],
       "env": {
         "N8N_BASE_URL": "https://your-n8n-instance.com",
         "N8N_API_KEY": "your-api-key"
